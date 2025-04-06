@@ -13,7 +13,7 @@ async function analyzeManualInput() {
     if (!barcode) return alert("Please enter barcode");
   
     try {
-      const response = await fetch(`http://localhost:3000/barcode/${barcode}`);
+      const response = await fetch(`https://nutrictrl2.onrender.com/barcode/${barcode}`);
       const data = await response.json();
       if (data.ingredients) {
         sessionStorage.setItem("ingredients", data.ingredients);
@@ -35,7 +35,7 @@ async function analyzeManualInput() {
     formData.append("image", fileInput.files[0]);
   
     try {
-      const response = await fetch("http://localhost:3000/ocr", {
+      const response = await fetch("https://nutrictrl2.onrender.com/ocr", {
         method: "POST",
         body: formData
       });
@@ -57,7 +57,7 @@ async function analyzeManualInput() {
     const ingredients = sessionStorage.getItem("ingredients");
     document.getElementById("ingredientSummary").textContent = `Ingredients: ${ingredients}`;
   
-    fetch("http://localhost:3000/analyze", {
+    fetch("https://nutrictrl2.onrender.com/analyze", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ingredients })
